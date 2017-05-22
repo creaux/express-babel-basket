@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  h1= title
+  if products.length > 0
+    form(method="post")
+      table.table.table-striped
+        tr
+          th Title
+          th Count
+          th Price per unit
+          th Control
+        each item, i in products
+          tr
+            td(width="30%")= item.title
+            td(width="30%")= item.count
+            td= item.price
+            td(width="10%")
+              div.btn-group
+                button.btn.btn-success(type="submit" value=item._id name="_id" id=item._id formaction="/basket/add") +
+                button.btn.btn-danger(type="submit" value=item._id name="_id" id=item._id formaction="/basket/remove") -
+        tr
+          td(width="30%")
+            strong Total
+          td(width="30%")
+          td(width="30%")
+            strong= total
+          td(width="10%")
+  else
+    div Please add product to cart!

@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  h1= title
+  form.form-inline(action="/catalog/create" method="post")
+    div.form-group
+      label(for="title") Product title:
+      span &nbsp;&nbsp;&nbsp;
+      input.form-control(id="title", type="text", name="title")
+      span &nbsp;&nbsp;&nbsp;
+    div.form-group
+      label(for="price") Product price:
+      span &nbsp;&nbsp;&nbsp;
+      input.form-control(id="price", type="number", name="price")
+      span &nbsp;&nbsp;&nbsp;
+    input.btn.btn-primary(type="submit" value="Save")
+  br
+  if products.length > 0
+    form(method="post")
+      table.table.table-striped
+        tr
+          th(width="40%") Title
+          th(width="40%") Price
+          th(width="20%") Control
+        each item in products
+          tr
+            td= item.title
+            td= item.price
+            td
+              button.btn.btn-primary(type="submit" value=item._id name="_id" id=item._id formaction="/basket/add") Add to basket
+              span &nbsp;&nbsp;&nbsp;
+              button.btn.btn-danger(type="submit" value=item._id name="_id" id=item._id formaction="/catalog/remove") Remove
+  else
+    div Please add some product with price.
+
